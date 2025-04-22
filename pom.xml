@@ -8,8 +8,8 @@
 		<version>3.4.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>tech.silva.inventory</groupId>
-	<artifactId>inventory-management</artifactId>
+	<groupId>tech.silva</groupId>
+	<artifactId>inventory</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>inventory-management</name>
 	<description>Demo project for Spring Boot</description>
