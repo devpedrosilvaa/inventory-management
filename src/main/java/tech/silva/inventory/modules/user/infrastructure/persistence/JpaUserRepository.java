@@ -4,7 +4,8 @@ package tech.silva.inventory.modules.user.infrastructure.persistence;
 import org.springframework.stereotype.Repository;
 import tech.silva.inventory.modules.user.domain.model.User;
 import tech.silva.inventory.modules.user.domain.repository.UserRepository;
-import tech.silva.inventory.modules.user.infrastructure.persistence.entity.UserEntity;
+import tech.silva.inventory.modules.user.infrastructure.persistence.mapper.UserMapper;
+import tech.silva.inventory.modules.user.infrastructure.persistence.mapper.UserPersistenceMapper;
 
 import java.util.Optional;
 
@@ -19,16 +20,16 @@ public class JpaUserRepository implements UserRepository {
 
     @Override
     public User save(User user) {
-        return jpaRepository.save(UserEntity.toEntity(user)).toDomain();
+        return UserMapper.toDomainFromEntity(jpaRepository.save(UserPersistenceMapper.toEntity(user)));
     }
 
     @Override
     public Optional<User> findById(Long id) {
-        return jpaRepository.findById(id).map(UserEntity::toDomain);
+        return jpaRepository.findById(id).map(UserMapper::toDomainFromEntity);
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
-        return jpaRepository.findByEmail(email).map(UserEntity::toDomain);
+        return jpaRepository.findByEmail(email).map(UserMapper::toDomainFromEntity);
     }
 }

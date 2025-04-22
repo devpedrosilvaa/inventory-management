@@ -1,6 +1,7 @@
 package tech.silva.inventory.modules.user.application.service;
 
 
+import tech.silva.inventory.modules.shared.exceptions.EmailAlreadyUsedException;
 import tech.silva.inventory.modules.shared.exceptions.ObjectNotFoundException;
 import tech.silva.inventory.modules.user.domain.model.User;
 import tech.silva.inventory.modules.user.domain.repository.UserRepository;
@@ -14,6 +15,8 @@ public class UserService {
     }
 
     public User createUser(User user) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent())
+            throw new EmailAlreadyUsedException(user.getEmail());
         return userRepository.save(user);
     }
 

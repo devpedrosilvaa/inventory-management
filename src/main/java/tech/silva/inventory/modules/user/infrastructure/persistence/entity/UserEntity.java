@@ -14,16 +14,41 @@ public class UserEntity {
     private String password;
     private String role;
 
-    public User toDomain() {
-        return new User(id, name, email, password, role);
+    public UserEntity() {
     }
 
-    public static UserEntity toEntity(User user) {
-        UserEntity entity = new UserEntity();
-        entity.name = user.getName();
-        entity.email = user.getEmail();
-        entity.password = user.getPassword();
-        entity.role = user.getRole();
-        return entity;
+    public UserEntity(Long id, String name, String email, String password, String role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public UserEntity(String name, String email, String password, String role) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getRole() {
+        return role;
     }
 }
