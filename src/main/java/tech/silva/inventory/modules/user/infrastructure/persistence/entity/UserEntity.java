@@ -1,6 +1,7 @@
 package tech.silva.inventory.modules.user.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
+import tech.silva.inventory.modules.shared.enums.Role;
 import tech.silva.inventory.modules.user.domain.model.User;
 
 @Entity
@@ -12,12 +13,12 @@ public class UserEntity {
     private String name;
     private String email;
     private String password;
-    private String role;
+    private Role role;
 
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String name, String email, String password, String role) {
+    public UserEntity(Long id, String name, String email, String password, Role role) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -25,7 +26,7 @@ public class UserEntity {
         this.role = role;
     }
 
-    public UserEntity(String name, String email, String password, String role) {
+    public UserEntity(String name, String email, String password, Role role) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -48,7 +49,7 @@ public class UserEntity {
         return password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 }

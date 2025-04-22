@@ -25,4 +25,9 @@ public class UserService implements UserApplicationService {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("User not found, try again!"));
     }
+
+    public User getUserByEmail(String email){
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ObjectNotFoundException("User not found, try again!"));
+    }
 }
