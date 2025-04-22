@@ -1,6 +1,7 @@
 package tech.silva.inventory.modules.user.application.service;
 
 
+import tech.silva.inventory.modules.shared.exceptions.ObjectNotFoundException;
 import tech.silva.inventory.modules.user.domain.model.User;
 import tech.silva.inventory.modules.user.domain.repository.UserRepository;
 
@@ -18,6 +19,6 @@ public class UserService {
 
     public User getUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ObjectNotFoundException("User not found, try again!"));
     }
 }
