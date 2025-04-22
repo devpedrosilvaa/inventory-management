@@ -3,10 +3,11 @@ package tech.silva.inventory.modules.user.application.service;
 
 import tech.silva.inventory.modules.shared.exceptions.EmailAlreadyUsedException;
 import tech.silva.inventory.modules.shared.exceptions.ObjectNotFoundException;
+import tech.silva.inventory.modules.user.application.api.UserApplicationService;
 import tech.silva.inventory.modules.user.domain.model.User;
 import tech.silva.inventory.modules.user.domain.repository.UserRepository;
 
-public class UserService {
+public class UserService implements UserApplicationService {
 
     private final UserRepository userRepository;
 
