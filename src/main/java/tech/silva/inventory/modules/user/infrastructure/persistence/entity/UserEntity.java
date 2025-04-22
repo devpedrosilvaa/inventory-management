@@ -20,7 +20,6 @@ public class UserEntity {
 
     public static UserEntity toEntity(User user) {
         UserEntity entity = new UserEntity();
-        entity.id = user.getId();
         entity.name = user.getName();
         entity.email = user.getEmail();
         entity.password = user.getPassword();
