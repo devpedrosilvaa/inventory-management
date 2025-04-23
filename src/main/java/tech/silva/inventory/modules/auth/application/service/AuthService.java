@@ -41,4 +41,8 @@ public class AuthService {
             throw new InvalidCredencialException("Invalid credentials for user: " + username);
         }
     }
+
+    public User getUserAuthenticated(Long id){
+        return userService.getUserById(id);
+    }
 }
