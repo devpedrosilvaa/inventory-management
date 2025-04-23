@@ -11,11 +11,12 @@ public class Store {
     private String cnpj;
     private Address address;
     private StatusStore status;
+    private Long idUser;
 
     public Store() {
     }
 
-    public Store(Long id, String name, String description, String email, String phoneNumber, String cnpj, Address address, StatusStore status) {
+    public Store(Long id, String name, String description, String email, String phoneNumber, String cnpj, Address address, StatusStore status, Long idUser) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -24,6 +25,7 @@ public class Store {
         this.cnpj = cnpj;
         this.address = address;
         this.status = status;
+        this.idUser = idUser;
     }
 
     public Long getId() {
@@ -56,5 +58,9 @@ public class Store {
 
     public StatusStore getStatus() {
         return status;
+    }
+
+    public Long getIdUser() {
+        return idUser;
     }
 }
