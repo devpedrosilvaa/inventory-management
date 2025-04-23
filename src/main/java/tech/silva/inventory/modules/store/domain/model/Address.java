@@ -1,7 +1,6 @@
 package tech.silva.inventory.modules.store.domain.model;
 
 public class Address {
-    private Long id;
     private String street;
     private String number;
     private String complement;
@@ -13,8 +12,7 @@ public class Address {
     public Address() {
     }
 
-    public Address(Long id, String street, String number, String complement, String neighborhood, String city, String state, String zipCode) {
-        this.id = id;
+    public Address(String street, String number, String complement, String neighborhood, String city, String state, String zipCode) {
         this.street = street;
         this.number = number;
         this.complement = complement;
@@ -22,10 +20,6 @@ public class Address {
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getStreet() {

@@ -10,13 +10,13 @@ public class Store {
     private String phoneNumber;
     private String cnpj;
     private Address address;
-    private StatusStore status;
+    private StatusStore status = StatusStore.ACTIVE;
     private Long idUser;
 
     public Store() {
     }
 
-    public Store(Long id, String name, String description, String email, String phoneNumber, String cnpj, Address address, StatusStore status, Long idUser) {
+        public Store(Long id, String name, String description, String email, String phoneNumber, String cnpj, Address address, StatusStore status, Long idUser) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -26,6 +26,15 @@ public class Store {
         this.address = address;
         this.status = status;
         this.idUser = idUser;
+    }
+
+    public Store(String name, String description, String email, String phoneNumber, String cnpj, Address address) {
+        this.name = name;
+        this.description = description;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.cnpj = cnpj;
+        this.address = address;
     }
 
     public Long getId() {
@@ -62,5 +71,9 @@ public class Store {
 
     public Long getIdUser() {
         return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 }

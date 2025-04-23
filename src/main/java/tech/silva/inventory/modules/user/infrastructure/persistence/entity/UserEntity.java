@@ -21,7 +21,7 @@ public class UserEntity {
     private String email;
     private String password;
     private Role role;
-    private Long idStore;
+    private Long storeId;
 
     @CreatedDate
     private LocalDateTime createdDate;
@@ -35,12 +35,13 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String name, String email, String password, Role role) {
+    public UserEntity(Long id, String name, String email, String password, Role role, Long storeId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.storeId = storeId;
     }
 
     public UserEntity(String name, String email, String password, Role role) {
@@ -87,6 +88,6 @@ public class UserEntity {
     }
 
     public Long getIdStore() {
-        return idStore;
+        return storeId;
     }
 }
