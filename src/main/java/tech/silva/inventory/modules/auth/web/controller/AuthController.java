@@ -5,12 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import tech.silva.inventory.modules.auth.application.dto.AuthLoginRequest;
+import tech.silva.inventory.modules.auth.application.dto.AuthUserResponse;
 import tech.silva.inventory.modules.auth.application.service.AuthService;
+import tech.silva.inventory.modules.auth.domain.model.AuthUser;
+import tech.silva.inventory.modules.auth.infrastructure.mapper.AuthUserMapper;
 import tech.silva.inventory.modules.auth.infrastructure.security.JwtToken;
 import tech.silva.inventory.modules.auth.infrastructure.security.JwtUserDetails;
-import tech.silva.inventory.modules.user.application.dto.UserResponse;
-import tech.silva.inventory.modules.user.domain.model.User;
-import tech.silva.inventory.modules.user.infrastructure.persistence.mapper.UserMapper;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -28,8 +28,8 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserResponse> authenticate(@AuthenticationPrincipal JwtUserDetails userDetails){
-        User user = authService.getUserAuthenticated(userDetails.getId());
-        return ResponseEntity.ok(UserMapper.toUserResponseFromDomain(user));
+    public ResponseEntity<AuthUserResponse> authenticate(@AuthenticationPrincipal JwtUserDetails userDetails){
+        AuthUser user = authService.getUserAuthenticated(userDetails.getId());
+        return ResponseEntity.ok(AuthUserMapper.toAuthResponseFromAuthUser(user));
     }
 }

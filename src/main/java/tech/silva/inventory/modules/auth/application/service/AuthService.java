@@ -1,14 +1,15 @@
 package tech.silva.inventory.modules.auth.application.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
+import tech.silva.inventory.modules.auth.domain.model.AuthUser;
 import tech.silva.inventory.modules.auth.infrastructure.security.JwtToken;
 import tech.silva.inventory.modules.auth.infrastructure.security.JwtUserDetailsService;
 import tech.silva.inventory.modules.shared.exceptions.InvalidCredencialException;
 import tech.silva.inventory.modules.user.application.api.UserApplicationService;
-import tech.silva.inventory.modules.user.domain.model.User;
 
 @Service
 public class AuthService {
@@ -26,8 +27,9 @@ public class AuthService {
     public JwtToken authenticate(String username, String password){
         try {
             if (!username.contains("@")) {
-                User user = userService.getUserByEmail(username);
-                username = user.getEmail();
+                AuthUser authUser = new AuthUser();
+                BeanUtils.copyProperties(userService.getUserByEmailAuth(username), authUser);
+                username = authUser.getEmail();
             }
 
             UsernamePasswordAuthenticationToken authenticationToken =
@@ -42,7 +44,9 @@ public class AuthService {
         }
     }
 
-    public User getUserAuthenticated(Long id){
-        return userService.getUserById(id);
+    public AuthUser getUserAuthenticated(Long id){
+        AuthUser authUser = new AuthUser();
+        BeanUtils.copyProperties(userService.getUserByIdAuth(id), authUser);
+        return authUser;
     }
 }
