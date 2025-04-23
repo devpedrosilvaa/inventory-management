@@ -1,15 +1,17 @@
 package tech.silva.inventory.modules.user.domain.model;
 
+import tech.silva.inventory.modules.shared.enums.Role;
+
 public class User {
     private Long id;
     private String name;
     private String email;
     private String password;
-    private String role;
+    private Role role = Role.ROLE_ADMIN;
 
     public User(){}
 
-    public User(Long id, String name, String email, String password, String role) {
+    public User(Long id, String name, String email, String password, Role role) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -17,11 +19,10 @@ public class User {
         this.role = role;
     }
 
-    public User(String name, String email, String password, String role) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.role = role;
     }
 
     public Long getId() {
@@ -40,7 +41,11 @@ public class User {
         return password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

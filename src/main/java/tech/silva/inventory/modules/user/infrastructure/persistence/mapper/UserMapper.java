@@ -10,8 +10,7 @@ public class UserMapper {
         return new User(
                 user.name(),
                 user.email(),
-                user.password(),
-                user.role()
+                user.password()
         );
     }
 
