@@ -3,7 +3,9 @@ package tech.silva.inventory.modules.store.application.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tech.silva.inventory.modules.shared.exceptions.CnpjAlreadyExistException;
+import tech.silva.inventory.modules.shared.exceptions.ObjectNotFoundException;
 import tech.silva.inventory.modules.shared.exceptions.UserAlreadyHaveStoreException;
+import tech.silva.inventory.modules.shared.exceptions.UserWithoutStoreException;
 import tech.silva.inventory.modules.store.domain.model.Store;
 import tech.silva.inventory.modules.store.infrastructure.persistence.JpaStoreRepository;
 import tech.silva.inventory.modules.user.application.api.UserApplicationService;
@@ -28,5 +30,16 @@ public class StoreService {
         store = storeRepository.save(store);
         userService.addStore(store.getIdUser(), store.getId());
         return store;
+    }
+
+    @Transactional(readOnly = true)
+    public Store getStoreByUser(Long idUser){
+        Long storeId = userService.getStoreIdByUserId(idUser);
+        if (storeId == null)
+            throw new UserWithoutStoreException("User without store in your register");
+
+        return storeRepository.findById(storeId).orElseThrow(
+                () -> new ObjectNotFoundException("Store not found, try again!")
+        );
     }
 }

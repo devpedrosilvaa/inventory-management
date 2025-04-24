@@ -21,7 +21,8 @@ public class UserMapper {
                 user.getName(),
                 user.getEmail(),
                 user.getPassword(),
-                user.getRole()
+                user.getRole(),
+                user.getIdStore()
         );
     }
 

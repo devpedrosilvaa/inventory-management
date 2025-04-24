@@ -69,4 +69,13 @@ public class UserService implements UserApplicationService {
         user.setIdStore(idStore);
         userRepository.save(user);
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Long getStoreIdByUserId(Long idUser) {
+        Long storeId = userRepository.findById(idUser).orElseThrow(
+                () -> new ObjectNotFoundException("User not found, try again!")
+        ).getIdStore();
+        return storeId;
+    }
 }

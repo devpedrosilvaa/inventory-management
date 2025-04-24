@@ -6,4 +6,5 @@ public interface UserApplicationService {
     AuthUserView getUserByIdAuth(Long id);
     AuthUserView getUserByEmailAuth(String email);
     void addStore(Long idUser, Long idStore);
+    Long getStoreIdByUserId(Long idUser);
 }

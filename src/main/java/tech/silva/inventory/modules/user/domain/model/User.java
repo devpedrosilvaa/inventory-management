@@ -12,12 +12,13 @@ public class User {
 
     public User(){}
 
-    public User(Long id, String name, String email, String password, Role role) {
+    public User(Long id, String name, String email, String password, Role role, Long idStore) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.idStore = idStore;
     }
 
     public User(String name, String email, String password) {

@@ -31,4 +31,9 @@ public class JpaStoreRepository implements StoreRepository {
     public Optional<Store> findByCnpj(String cnpj) {
         return storeRepository.findByCnpj(cnpj).map(StoreMapper::toDomainFromEntity);
     }
+
+    @Override
+    public Optional<Store> findById(Long id) {
+        return storeRepository.findById(id).map(StoreMapper::toDomainFromEntity);
+    }
 }
