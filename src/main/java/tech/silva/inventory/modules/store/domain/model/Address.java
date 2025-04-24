@@ -1,12 +1,21 @@
 package tech.silva.inventory.modules.store.domain.model;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class Address {
+    @NotBlank
     private String street;
+    @NotBlank
     private String number;
+    @NotBlank
     private String complement;
+    @NotBlank
     private String neighborhood;
+    @NotBlank
     private String city;
+    @NotBlank
     private String state;
+    @NotBlank
     private String zipCode;
 
     public Address() {

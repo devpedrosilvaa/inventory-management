@@ -1,6 +1,7 @@
 package tech.silva.inventory.modules.store.web.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import tech.silva.inventory.modules.auth.infrastructure.security.JwtUserDetails;
 import tech.silva.inventory.modules.store.application.dto.StoreCreateRequest;
 import tech.silva.inventory.modules.store.application.dto.StoreResponse;
 import tech.silva.inventory.modules.store.application.service.StoreService;
+import tech.silva.inventory.modules.store.domain.model.Address;
 import tech.silva.inventory.modules.store.domain.model.Store;
 import tech.silva.inventory.modules.store.infrastructure.mapper.StoreMapper;
 
@@ -35,5 +37,12 @@ public class StoreController {
     public ResponseEntity<StoreResponse> getStoreByUserAuthenticated(@AuthenticationPrincipal JwtUserDetails userDetails){
         return ResponseEntity.ok(StoreMapper.toResponseFromDomain(
                     storeService.getStoreByUser(userDetails.getId())));
+    }
+
+    @PutMapping("/address/{idStore}")
+    public ResponseEntity<StoreResponse> updateAddress(@RequestBody @Valid Address address,
+                                                            @PathVariable Long idStore){
+        Store store = storeService.updateAddress(idStore, address);
+        return ResponseEntity.ok(StoreMapper.toResponseFromDomain(store));
     }
 }

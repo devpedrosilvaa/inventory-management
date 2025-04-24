@@ -76,4 +76,8 @@ public class Store {
     public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }
