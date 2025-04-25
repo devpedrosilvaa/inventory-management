@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import tech.silva.inventory.modules.store.application.dto.StoreCreateRequest;
 import tech.silva.inventory.modules.store.application.dto.StoreResponse;
 import tech.silva.inventory.modules.store.application.dto.StoreUpdateRequest;
+import tech.silva.inventory.modules.store.application.dto.mapper.StoreDtoMapper;
 import tech.silva.inventory.modules.store.application.service.StoreService;
 import tech.silva.inventory.modules.store.domain.model.Address;
 import tech.silva.inventory.modules.store.domain.model.Store;
@@ -27,12 +28,12 @@ public class StoreController {
         Store store = storeService.saveStore(
                 StoreMapper.toDomainFromCreateRequest(storeRequest));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(StoreMapper.toResponseFromDomain(store));
+        return ResponseEntity.status(HttpStatus.CREATED).body(StoreDtoMapper.toResponseFromDomain(store));
     }
 
     @GetMapping("/me")
     public ResponseEntity<StoreResponse> getStoreByUserAuthenticated(){
-        return ResponseEntity.ok(StoreMapper.toResponseFromDomain(
+        return ResponseEntity.ok(StoreDtoMapper.toResponseFromDomain(
                     storeService.getStoreByUser()));
     }
 
@@ -40,14 +41,14 @@ public class StoreController {
     public ResponseEntity<StoreResponse> updateAddress(@RequestBody @Valid Address address,
                                                             @PathVariable Long idStore){
         Store store = storeService.updateAddress(idStore, address);
-        return ResponseEntity.ok(StoreMapper.toResponseFromDomain(store));
+        return ResponseEntity.ok(StoreDtoMapper.toResponseFromDomain(store));
     }
 
     @PutMapping("/{idStore}")
     public ResponseEntity<StoreResponse> updateDataStore(@RequestBody @Valid StoreUpdateRequest storeUpdateRequest,
                                                             @PathVariable Long idStore){
             Store store = storeService.updateDataStore(idStore, storeUpdateRequest);
-            return ResponseEntity.ok(StoreMapper.toResponseFromDomain(store));
+            return ResponseEntity.ok(StoreDtoMapper.toResponseFromDomain(store));
     }
 
     @DeleteMapping("/{idStore}")

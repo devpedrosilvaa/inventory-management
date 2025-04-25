@@ -8,9 +8,9 @@ import tech.silva.inventory.modules.shared.exceptions.EmailAlreadyUsedException;
 import tech.silva.inventory.modules.shared.exceptions.ObjectNotFoundException;
 import tech.silva.inventory.modules.user.application.api.UserApplicationService;
 import tech.silva.inventory.modules.user.application.dto.AuthUserView;
+import tech.silva.inventory.modules.user.application.dto.mapper.UserDtoMapper;
 import tech.silva.inventory.modules.user.domain.model.User;
 import tech.silva.inventory.modules.user.domain.repository.UserRepository;
-import tech.silva.inventory.modules.user.infrastructure.persistence.mapper.UserMapper;
 
 @Service
 public class UserService implements UserApplicationService {
@@ -46,7 +46,7 @@ public class UserService implements UserApplicationService {
 
     @Transactional(readOnly = true)
     public AuthUserView getUserByIdAuth(Long id) {
-        return UserMapper.toAuthViewFromDomain(
+        return UserDtoMapper.toAuthViewFromDomain(
                 userRepository.findById(id)
                     .orElseThrow(() -> new ObjectNotFoundException("User not found, try again!"))
         );
@@ -54,7 +54,7 @@ public class UserService implements UserApplicationService {
 
     @Transactional(readOnly = true)
     public AuthUserView getUserByEmailAuth(String email){
-        AuthUserView auth =UserMapper.toAuthViewFromDomain(
+        AuthUserView auth = UserDtoMapper.toAuthViewFromDomain(
                 userRepository.findByEmail(email)
                         .orElseThrow(() -> new ObjectNotFoundException("User not found, try again!"))
         );

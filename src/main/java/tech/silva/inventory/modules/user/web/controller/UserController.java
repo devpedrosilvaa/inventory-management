@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.silva.inventory.modules.user.application.dto.UserCreateRequest;
 import tech.silva.inventory.modules.user.application.dto.UserResponse;
+import tech.silva.inventory.modules.user.application.dto.mapper.UserDtoMapper;
 import tech.silva.inventory.modules.user.application.service.UserService;
 import tech.silva.inventory.modules.user.domain.model.User;
 import tech.silva.inventory.modules.user.infrastructure.persistence.mapper.UserMapper;
@@ -20,12 +21,12 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserResponse> save(@RequestBody @Valid  UserCreateRequest user) {
         User domain = userService.createUser(UserMapper.toDomainFromCreateRequest(user));
-        return ResponseEntity.ok(UserMapper.toUserResponseFromDomain(domain));
+        return ResponseEntity.ok(UserDtoMapper.toUserResponseFromDomain(domain));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(UserMapper.toUserResponseFromDomain(userService.getUserById(id)));
+        return ResponseEntity.ok(UserDtoMapper.toUserResponseFromDomain(userService.getUserById(id)));
     }
 }
 

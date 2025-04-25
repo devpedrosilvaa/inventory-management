@@ -32,26 +32,11 @@ public class StoreMapper {
         );
     }
 
-    public static Store toDomainFromUpdateRequest(StoreUpdateRequest store, Store storeSaved) {
+    public static void toDomainFromUpdateRequest(StoreUpdateRequest store, Store storeSaved) {
         storeSaved.setName(store.name());
         storeSaved.setDescription(store.description());
         storeSaved.setEmail(store.email());
         storeSaved.setPhoneNumber(store.phoneNumber());
         storeSaved.setCnpj(store.cnpj());
-        return storeSaved;
-    }
-
-    public static StoreResponse toResponseFromDomain(Store store) {
-        return new StoreResponse(
-                store.getId(),
-                store.getName(),
-                store.getDescription(),
-                store.getEmail(),
-                store.getPhoneNumber(),
-                store.getCnpj(),
-                store.getAddress(),
-                store.getStatus(),
-                store.getIdUser()
-        );
     }
 }
