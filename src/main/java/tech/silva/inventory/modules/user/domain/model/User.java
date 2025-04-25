@@ -8,21 +8,24 @@ public class User {
     private String email;
     private String password;
     private Role role = Role.ROLE_ADMIN;
+    private Long idStore;
 
     public User(){}
 
-    public User(Long id, String name, String email, String password, Role role) {
+    public User(Long id, String name, String email, String password, Role role, Long idStore) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.idStore = idStore;
     }
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, Role role) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public Long getId() {
@@ -47,5 +50,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setIdStore(Long idStore) {
+        this.idStore = idStore;
+    }
+
+    public Long getIdStore() {
+        return idStore;
     }
 }

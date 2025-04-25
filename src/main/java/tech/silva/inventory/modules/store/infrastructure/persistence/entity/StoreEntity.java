@@ -1,4 +1,4 @@
-package tech.silva.inventory.modules.user.infrastructure.persistence.entity;
+package tech.silva.inventory.modules.store.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedBy;
@@ -6,23 +6,27 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import tech.silva.inventory.modules.shared.enums.Role;
+import tech.silva.inventory.modules.shared.enums.StatusStore;
+import tech.silva.inventory.modules.store.domain.model.Address;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users")
+@Table(name = "stores")
 @EntityListeners(AuditingEntityListener.class)
-public class UserEntity {
+public class StoreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String description;
     private String email;
-    private String password;
-    @Enumerated(EnumType.STRING)
-    private Role role;
-    private Long storeId;
+    private String phoneNumber;
+    private String cnpj;
+    @Embedded
+    private Address address;
+    private StatusStore status = StatusStore.ACTIVE;
+    private Long userId;
 
     @CreatedDate
     private LocalDateTime createdDate;
@@ -33,23 +37,19 @@ public class UserEntity {
     @LastModifiedBy
     private String lastModifiedBy;
 
-    public UserEntity() {
+    public StoreEntity() {
     }
 
-    public UserEntity(Long id, String name, String email, String password, Role role, Long storeId) {
+    public StoreEntity(Long id, String name, String description, String email, String phoneNumber, String cnpj, Address address, StatusStore status, Long userId) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.email = email;
-        this.password = password;
-        this.role = role;
-        this.storeId = storeId;
-    }
-
-    public UserEntity(String name, String email, String password, Role role) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+        this.phoneNumber = phoneNumber;
+        this.cnpj = cnpj;
+        this.address = address;
+        this.status = status;
+        this.userId = userId;
     }
 
     public Long getId() {
@@ -60,20 +60,32 @@ public class UserEntity {
         return name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public String getEmail() {
         return email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public Role getRole() {
-        return role;
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
+    public Address getAddress() {
+        return address;
+    }
+
+    public StatusStore getStatus() {
+        return status;
+    }
+
+    public Long getIdUser() {
+        return userId;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -88,7 +100,7 @@ public class UserEntity {
         return lastModifiedDate;
     }
 
-    public Long getIdStore() {
-        return storeId;
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
     }
 }

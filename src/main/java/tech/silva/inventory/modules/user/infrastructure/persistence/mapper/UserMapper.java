@@ -1,5 +1,6 @@
 package tech.silva.inventory.modules.user.infrastructure.persistence.mapper;
 
+import tech.silva.inventory.modules.user.application.dto.AuthUserView;
 import tech.silva.inventory.modules.user.application.dto.UserCreateRequest;
 import tech.silva.inventory.modules.user.application.dto.UserResponse;
 import tech.silva.inventory.modules.user.domain.model.User;
@@ -10,7 +11,8 @@ public class UserMapper {
         return new User(
                 user.name(),
                 user.email(),
-                user.password()
+                user.password(),
+                user.role()
         );
     }
 
@@ -20,7 +22,8 @@ public class UserMapper {
                 user.getName(),
                 user.getEmail(),
                 user.getPassword(),
-                user.getRole()
+                user.getRole(),
+                user.getIdStore()
         );
     }
 
@@ -29,6 +32,16 @@ public class UserMapper {
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
+                user.getRole()
+        );
+    }
+
+    public static AuthUserView toAuthViewFromDomain(User user){
+        return new AuthUserView(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
                 user.getRole()
         );
     }

@@ -1,9 +1,10 @@
 package tech.silva.inventory.modules.user.application.api;
 
-import tech.silva.inventory.modules.user.domain.model.User;
+import tech.silva.inventory.modules.user.application.dto.AuthUserView;
 
 public interface UserApplicationService {
-    User createUser(User user);
-    User getUserById(Long id);
-    User getUserByEmail(String email);
+    AuthUserView getUserByIdAuth(Long id);
+    AuthUserView getUserByEmailAuth(String email);
+    void addStore(Long idUser, Long idStore);
+    Long getStoreIdByUserId(Long idUser);
 }

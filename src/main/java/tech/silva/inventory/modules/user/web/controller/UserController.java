@@ -8,7 +8,6 @@ import tech.silva.inventory.modules.user.application.dto.UserCreateRequest;
 import tech.silva.inventory.modules.user.application.dto.UserResponse;
 import tech.silva.inventory.modules.user.application.service.UserService;
 import tech.silva.inventory.modules.user.domain.model.User;
-import tech.silva.inventory.modules.user.domain.repository.UserRepository;
 import tech.silva.inventory.modules.user.infrastructure.persistence.mapper.UserMapper;
 
 @RestController
