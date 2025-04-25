@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import tech.silva.inventory.modules.auth.infrastructure.security.JwtUserDetails;
 import tech.silva.inventory.modules.store.application.dto.StoreCreateRequest;
 import tech.silva.inventory.modules.store.application.dto.StoreResponse;
+import tech.silva.inventory.modules.store.application.dto.StoreUpdateRequest;
 import tech.silva.inventory.modules.store.application.service.StoreService;
 import tech.silva.inventory.modules.store.domain.model.Address;
 import tech.silva.inventory.modules.store.domain.model.Store;
@@ -44,5 +45,12 @@ public class StoreController {
                                                             @PathVariable Long idStore){
         Store store = storeService.updateAddress(idStore, address);
         return ResponseEntity.ok(StoreMapper.toResponseFromDomain(store));
+    }
+
+    @PutMapping("/{idStore}")
+    public ResponseEntity<StoreResponse> updateDataStore(@RequestBody @Valid StoreUpdateRequest storeUpdateRequest,
+                                                            @PathVariable Long idStore){
+            Store store = storeService.updateDataStore(idStore, storeUpdateRequest);
+            return ResponseEntity.ok(StoreMapper.toResponseFromDomain(store));
     }
 }

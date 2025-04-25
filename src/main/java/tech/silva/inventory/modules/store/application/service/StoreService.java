@@ -6,8 +6,10 @@ import tech.silva.inventory.modules.shared.exceptions.CnpjAlreadyExistException;
 import tech.silva.inventory.modules.shared.exceptions.ObjectNotFoundException;
 import tech.silva.inventory.modules.shared.exceptions.UserAlreadyHaveStoreException;
 import tech.silva.inventory.modules.shared.exceptions.UserWithoutStoreException;
+import tech.silva.inventory.modules.store.application.dto.StoreUpdateRequest;
 import tech.silva.inventory.modules.store.domain.model.Address;
 import tech.silva.inventory.modules.store.domain.model.Store;
+import tech.silva.inventory.modules.store.infrastructure.mapper.StoreMapper;
 import tech.silva.inventory.modules.store.infrastructure.persistence.JpaStoreRepository;
 import tech.silva.inventory.modules.user.application.api.UserApplicationService;
 
@@ -52,5 +54,16 @@ public class StoreService {
 
         store.setAddress(address);
         return storeRepository.save(store);
+    }
+
+    @Transactional
+    public Store updateDataStore(Long idStore, StoreUpdateRequest store){
+        Store storeSaved = storeRepository.findById(idStore).orElseThrow(
+                () -> new ObjectNotFoundException("Store not found, try again!")
+        );
+
+        StoreMapper.toDomainFromUpdateRequest(store, storeSaved);
+        System.out.println(storeSaved.getName());
+        return storeRepository.save(storeSaved);
     }
 }

@@ -2,6 +2,7 @@ package tech.silva.inventory.modules.store.infrastructure.mapper;
 
 import tech.silva.inventory.modules.store.application.dto.StoreCreateRequest;
 import tech.silva.inventory.modules.store.application.dto.StoreResponse;
+import tech.silva.inventory.modules.store.application.dto.StoreUpdateRequest;
 import tech.silva.inventory.modules.store.domain.model.Store;
 import tech.silva.inventory.modules.store.infrastructure.persistence.entity.StoreEntity;
 
@@ -29,6 +30,15 @@ public class StoreMapper {
                 store.cnpj(),
                 store.address()
         );
+    }
+
+    public static Store toDomainFromUpdateRequest(StoreUpdateRequest store, Store storeSaved) {
+        storeSaved.setName(store.name());
+        storeSaved.setDescription(store.description());
+        storeSaved.setEmail(store.email());
+        storeSaved.setPhoneNumber(store.phoneNumber());
+        storeSaved.setCnpj(store.cnpj());
+        return storeSaved;
     }
 
     public static StoreResponse toResponseFromDomain(Store store) {

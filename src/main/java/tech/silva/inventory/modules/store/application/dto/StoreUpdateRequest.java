@@ -1,12 +1,9 @@
 package tech.silva.inventory.modules.store.application.dto;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import tech.silva.inventory.modules.store.domain.model.Address;
 
-public record StoreCreateRequest(
+public record StoreUpdateRequest(
         @NotBlank
         String name,
         @NotBlank
@@ -16,8 +13,6 @@ public record StoreCreateRequest(
         @NotBlank
         String phoneNumber,
         @NotBlank
-        String cnpj,
-        @NotNull @Valid
-        Address address
+        String cnpj
 ) {
 }
