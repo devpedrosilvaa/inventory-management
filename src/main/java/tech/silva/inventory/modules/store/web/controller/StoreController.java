@@ -1,14 +1,11 @@
 package tech.silva.inventory.modules.store.web.controller;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import tech.silva.inventory.modules.auth.infrastructure.security.JwtUserDetails;
 import tech.silva.inventory.modules.store.application.dto.StoreCreateRequest;
 import tech.silva.inventory.modules.store.application.dto.StoreResponse;
 import tech.silva.inventory.modules.store.application.dto.StoreUpdateRequest;
@@ -26,18 +23,17 @@ public class StoreController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<StoreResponse> saveStore(@AuthenticationPrincipal JwtUserDetails userDetails,
-                                                   @RequestBody @Valid StoreCreateRequest storeRequest){
+    public ResponseEntity<StoreResponse> saveStore(@RequestBody @Valid StoreCreateRequest storeRequest){
         Store store = storeService.saveStore(
-                StoreMapper.toDomainFromCreateRequest(storeRequest), userDetails.getId());
+                StoreMapper.toDomainFromCreateRequest(storeRequest));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(StoreMapper.toResponseFromDomain(store));
     }
 
     @GetMapping("/me")
-    public ResponseEntity<StoreResponse> getStoreByUserAuthenticated(@AuthenticationPrincipal JwtUserDetails userDetails){
+    public ResponseEntity<StoreResponse> getStoreByUserAuthenticated(){
         return ResponseEntity.ok(StoreMapper.toResponseFromDomain(
-                    storeService.getStoreByUser(userDetails.getId())));
+                    storeService.getStoreByUser()));
     }
 
     @PutMapping("/address/{idStore}")
@@ -52,5 +48,11 @@ public class StoreController {
                                                             @PathVariable Long idStore){
             Store store = storeService.updateDataStore(idStore, storeUpdateRequest);
             return ResponseEntity.ok(StoreMapper.toResponseFromDomain(store));
+    }
+
+    @DeleteMapping("/{idStore}")
+    public ResponseEntity<StoreResponse> deleteStore(@PathVariable Long idStore){
+            storeService.deleteStore(idStore);
+            return ResponseEntity.ok().build();
     }
 }

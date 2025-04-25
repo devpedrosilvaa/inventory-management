@@ -36,4 +36,9 @@ public class JpaStoreRepository implements StoreRepository {
     public Optional<Store> findById(Long id) {
         return storeRepository.findById(id).map(StoreMapper::toDomainFromEntity);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        storeRepository.deleteById(id);
+    }
 }

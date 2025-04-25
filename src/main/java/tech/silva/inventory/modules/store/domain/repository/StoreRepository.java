@@ -9,4 +9,5 @@ public interface StoreRepository {
     Optional<Store> findByUserId(Long idUser);
     Optional<Store> findByCnpj(String cnpj);
     Optional<Store> findById(Long id);
+    void deleteById(Long id);
 }
