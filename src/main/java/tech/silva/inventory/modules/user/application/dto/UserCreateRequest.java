@@ -11,8 +11,6 @@ public record UserCreateRequest (
         @NotBlank @Email(message = "email format is invalid", regexp = "^[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$")
         String email,
         @NotBlank
-        String password,
-        @NotNull
-        Role role
+        String password
 ) {
 }

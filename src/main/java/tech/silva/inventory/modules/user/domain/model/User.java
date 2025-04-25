@@ -21,11 +21,17 @@ public class User {
         this.idStore = idStore;
     }
 
-    public User(String name, String email, String password, Role role) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.role = role;
+    }
+
+    public User(String name, String email, String password, Long idStore) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.idStore = idStore;
     }
 
     public Long getId() {
@@ -58,5 +64,21 @@ public class User {
 
     public Long getIdStore() {
         return idStore;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

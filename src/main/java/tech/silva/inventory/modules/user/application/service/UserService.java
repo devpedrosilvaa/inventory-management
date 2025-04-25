@@ -12,6 +12,8 @@ import tech.silva.inventory.modules.user.application.dto.mapper.UserDtoMapper;
 import tech.silva.inventory.modules.user.domain.model.User;
 import tech.silva.inventory.modules.user.domain.repository.UserRepository;
 
+import java.util.List;
+
 @Service
 public class UserService implements UserApplicationService {
 
@@ -54,17 +56,15 @@ public class UserService implements UserApplicationService {
 
     @Transactional(readOnly = true)
     public AuthUserView getUserByEmailAuth(String email){
-        AuthUserView auth = UserDtoMapper.toAuthViewFromDomain(
+        return UserDtoMapper.toAuthViewFromDomain(
                 userRepository.findByEmail(email)
                         .orElseThrow(() -> new ObjectNotFoundException("User not found, try again!"))
         );
-
-        return auth;
     }
 
     @Transactional
     @Override
-    public void addStore(Long idUser, Long idStore) {
+    public void assignStoreToUser(Long idUser, Long idStore) {
         User user = getUserById(idUser);
         user.setIdStore(idStore);
         userRepository.save(user);
@@ -73,9 +73,24 @@ public class UserService implements UserApplicationService {
     @Transactional(readOnly = true)
     @Override
     public Long getStoreIdByUserId(Long idUser) {
-        Long storeId = userRepository.findById(idUser).orElseThrow(
+        return userRepository.findById(idUser).orElseThrow(
                 () -> new ObjectNotFoundException("User not found, try again!")
         ).getIdStore();
-        return storeId;
+    }
+
+    @Override
+    public User addSellerUser(String name, String email, String password, Long idStore) {
+        return createUser(new User(
+                name,
+                email,
+                password,
+                idStore
+        ));
+    }
+
+    @Override
+    public List<User> listAllSellers(Long idUser) {
+        Long idStore = getStoreIdByUserId(idUser);
+        return userRepository.findAllByIdStore(idStore);
     }
 }

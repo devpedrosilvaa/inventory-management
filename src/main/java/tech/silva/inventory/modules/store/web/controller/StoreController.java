@@ -6,14 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import tech.silva.inventory.modules.store.application.dto.StoreCreateRequest;
-import tech.silva.inventory.modules.store.application.dto.StoreResponse;
-import tech.silva.inventory.modules.store.application.dto.StoreUpdateRequest;
+import tech.silva.inventory.modules.store.application.dto.*;
 import tech.silva.inventory.modules.store.application.dto.mapper.StoreDtoMapper;
 import tech.silva.inventory.modules.store.application.service.StoreService;
 import tech.silva.inventory.modules.store.domain.model.Address;
 import tech.silva.inventory.modules.store.domain.model.Store;
 import tech.silva.inventory.modules.store.infrastructure.mapper.StoreMapper;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/stores")
@@ -55,5 +54,18 @@ public class StoreController {
     public ResponseEntity<StoreResponse> deleteStore(@PathVariable Long idStore){
             storeService.deleteStore(idStore);
             return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/sellers/{idStore}")
+    public ResponseEntity<SellerResponse> saveSeller(@RequestBody @Valid SellerRequest dto,
+                                                     @PathVariable Long idStore) {
+        SellerResponse seller = storeService.registerSeller(dto, idStore);
+        return ResponseEntity.status(HttpStatus.CREATED).body(seller);
+    }
+
+    @GetMapping("/sellers")
+    public ResponseEntity<List<SellerResponse>> getAllSeller() {
+        List<SellerResponse> domain = storeService.listAllSellers();
+        return ResponseEntity.status(HttpStatus.CREATED).body(domain);
     }
 }
